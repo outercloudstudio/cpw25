@@ -82,7 +82,7 @@ async def main():
     global server_mode
     async with websockets.serve(handler, "", 8001):
         while True:
-            await asyncio.sleep(45)
+            await asyncio.sleep(15)
             # determine which mode we are in, then run appropriate code
             check_mode()
             if server_mode == SERVER_MODES[1]:
