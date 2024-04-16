@@ -13,6 +13,16 @@ class Player:
         self.websocket = websocket
         self.username = username
         self.lock = asyncio.Lock()
+
+    def __eq__(self, other):
+        if not isinstance(other, Player):
+            return False
+        # Rely on the fact that usernames are unique on the server
+        return self.username == other.username
+    
+    def __hash__(self):
+        # Rely on the fact that usernames are unique on the server
+        return hash(self.username)
     
     async def send_message(self, message):
         await self.websocket.send(message)
@@ -109,6 +119,12 @@ class Player:
         """
         await self.websocket.send(json.dumps({ "type": "invalid_request" }))
 
+    def is_locked(self):
+        """
+        Returns if the player is currently locked in a game.
+        """
+        return self.lock.locked()
+
 class GameController:
     """
     Representation:
@@ -141,6 +157,15 @@ class GameController:
         self.errored_players = None
 
         self.id = str(uuid.uuid4())
+
+    def __eq__(self, other):
+        if (not isinstance(other, GameController)):
+            return False
+        else:
+            return self.get_id() == other.get_id()
+        
+    def __hash__(self):
+        return hash(self.get_id())
 
     def get_id(self):
         """

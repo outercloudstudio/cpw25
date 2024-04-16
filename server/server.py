@@ -3,7 +3,7 @@ import websockets
 import json
 from player import Player, GameController
 from autoscrim import autoscrim 
-from tournament_runner import run_tourney
+from tournament import run_tournament
 import os.path
 
 # current console command
@@ -86,7 +86,7 @@ async def main():
             # determine which mode we are in, then run appropriate code
             check_mode()
             if server_mode == SERVER_MODES[1]:
-                await run_tourney(players)
+                await run_tournament(players)
             # we want to be in autoscrim mode by default
             else:
                 await autoscrim(players)
