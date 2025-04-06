@@ -22,6 +22,8 @@ After the round ends, bots with 0 health can take no further actions.
 
 Download [Python 3](https://www.python.org/downloads/)
 
+For conda, make a new environment using `conda create -n bccpw python=3.11`
+
 Make sure pip is installed by running `python -m pip --version` or `pip --version`
 * [Install pip](https://pip.pypa.io/en/stable/installation/) if it's not installed
 
