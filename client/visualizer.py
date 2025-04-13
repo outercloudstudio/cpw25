@@ -298,7 +298,7 @@ class Visualizer:
             shield_health = self._get_shield_health(
                 actions, opp_actions, i
             )
-            if shield_health is not None:
+            if shield_health is not None and is_alive:
                 start = middle - (Controller.SHIELD_HEALTH * BAR_CELL_WIDTH) // 2
                 self._draw_bar(
                     (start, pos[1] + 2),
