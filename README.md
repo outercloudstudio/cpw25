@@ -20,19 +20,17 @@ After the round ends, bots with 0 health can take no further actions.
 
 **Please ask any of us for help if you're having issues of if you're confused!**
 
-Download [Python 3](https://www.python.org/downloads/)
-
-For conda, make a new environment using `conda create -n bccpw python=3.11`
-
-Make sure pip is installed by running `python -m pip --version` or `pip --version`
-* [Install pip](https://pip.pypa.io/en/stable/installation/) if it's not installed
+Download [Python 3](https://www.python.org/downloads/) if it is not installed yet
 
 Clone or download this repository and open the folder in your terminal
 * Ask for help if you're confused on how to do this!
 
-In the repository folder, run `pip install -r requirements.txt`
+Create the virtual environment by running `python3 setup-env.py` and follow the printed instructions to activate it 
+* Ask for help if there are any issues
 
 Now, you can get started writing code! Open client/competitor.py for an example bot.
+
+Make sure to change your player's username within the competitor class.
 
 # Running your code
 
