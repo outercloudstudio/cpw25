@@ -117,8 +117,7 @@ async def main():
             await handler(websocket)
     except Exception as e:
         visualizer.render_error(f'Failed to connect to server. Please quit and retry.')
-        await asyncio.sleep(1)
-        print(e)
+        await asyncio.sleep(5)
 
 if __name__ == "__main__":
     def execute():

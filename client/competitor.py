@@ -1,50 +1,37 @@
 import random
 
-def get_bots_alive(controller):
-    alive = 0
-
-    for bot in range(3):
-        if controller.get_my_bot_health(controller, bot):
-            alive += 1
-
-    return alive
-
-def get_total_ammo(controller):
-    ammo = 0
-
-    for bot in range(3):
-        if controller.get_my_bot_health(controller, bot) > 0:
-            ammo += controller.get_my_bot_ammo(controller, bot)
-
-    return ammo
-
-def get_target(controller):
-    target_bot = 0
-
-    while controller.get_opponent_bot_health(target_bot) <= 0:
-        target_bot += 1
-
-        if target_bot == 2:
-            break
 
 class Competitor:
-    username = "Mcafee Antiviru"  # Change this!
+    username = "Outer Cloud"  # Change this!
 
     def __init__(self):
-        self.log = open('log.txt', 'w')
-        self.log.write('\n===========')
+        self.state = "load_initial"
+        # self.log = open('log.txt', 'w')
+        # self.log.write('\n===========')
 
     def play_turn(self, controller):
-        try:
-            ammo = get_total_ammo(controller)
+        # self.log.write('\n' + self.state)
 
-            if ammo < 6:
-                for bot in range(3):
-                    controller.load(bot)
-            else:
-                target = get_target(controller)
+        for bot in range(3):
+            if self.state == "load_initial" or self.state == "load_second":
+                controller.load(bot)
 
-                for bot in range(3):
-                    controller.attack(bot, target, controller.get_my_bot_ammo(bot))
-        except Exception as e:
-            self.log.write('\n' + str(e))
+            if self.state == "fire":
+                target_bot = 0
+
+                while controller.get_opponent_bot_health(target_bot) <= 0:
+                    target_bot += 1
+
+                    if target_bot == 2:
+                        break
+
+                controller.attack(bot, target_bot, 2)
+
+        if self.state == "load_initial":
+            self.state = "load_second"
+        elif self.state == "load_second":
+            self.state = "fire"
+        elif self.state == "fire":
+            self.state = "load_initial"
+
+        
