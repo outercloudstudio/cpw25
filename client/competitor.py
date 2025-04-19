@@ -1,38 +1,37 @@
 import random
 
+
 class Competitor:
-    username = "changeme"  # Change this!
+    username = "Outer Cloud"  # Change this!
 
     def __init__(self):
-        """
-        Initialize your code. You can create set any initial values in here.
-        """
-        # Initialize a counter for the round number
-        self.round_number = 0
+        self.state = "load_initial"
+        # self.log = open('log.txt', 'w')
+        # self.log.write('\n===========')
 
     def play_turn(self, controller):
-        """
-        Runs the code for playing your team's turn. Don't change the name or params
-        for this method!
-        """
-        self.round_number += 1
+        # self.log.write('\n' + self.state)
 
-        for bot_id in range(3):
-            my_ammo = controller.get_my_bot_ammo(bot_id)
-            if my_ammo == 0:
-                # Load one ammo
-                controller.load(bot_id)
-            else:
-                # Attack with all of our ammo. More ammo does more damage
-                attack_amount = my_ammo
-                # Select a random enemy target
-                target_id = random.randint(0, 2)
-                # Attack!
-                controller.attack(bot_id, target_id, attack_amount)
+        for bot in range(3):
+            if self.state == "load_initial" or self.state == "load_second":
+                controller.load(bot)
 
-            # We can also shield. When should we do this?
-            # controller.shield(bot_id)
+            if self.state == "fire":
+                target_bot = 0
 
-        #
-        # Check out "client/controller.py" for all available methods
-        #
+                while controller.get_opponent_bot_health(target_bot) <= 0:
+                    target_bot += 1
+
+                    if target_bot == 2:
+                        break
+
+                controller.attack(bot, target_bot, 2)
+
+        if self.state == "load_initial":
+            self.state = "load_second"
+        elif self.state == "load_second":
+            self.state = "fire"
+        elif self.state == "fire":
+            self.state = "load_initial"
+
+        
