@@ -34,4 +34,4 @@ Make sure to change your player's username within the competitor class.
 
 # Running your code
 
-In the repository folder, run `python client/client.py`
+In the repository folder, run `python3 client/client.py`
